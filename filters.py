@@ -28,7 +28,7 @@ def print_image(array):
 
 
 if __name__ == "__main__":
-    array = np.array(Image.open('image.jpg'))
+    array = np.array(Image.open('asuka.jpg'))
     print(array.shape)
     gray_array = grayscale(array)
     custom = CustomSobelFilter()

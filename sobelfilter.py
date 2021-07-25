@@ -11,10 +11,7 @@ class SobelFilter:
         output1 = convolve2d(array, self.filter1, boundary='symm', mode='same')
         output2 = convolve2d(array, self.filter2, boundary='symm', mode='same')
 
-        output = np.ones(array.shape)
-        for x in range(array.shape[0]):
-            for y in range(array.shape[1]):
-                output[x][y] = abs(output1[x][y]) + abs(output2[x][y])
+        output = np.abs(output1) + np.abs(output2)
         return output
 
     def apply(self, array):

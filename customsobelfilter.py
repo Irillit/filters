@@ -35,9 +35,6 @@ class CustomSobelFilter:
         output2[:, :, 1] = output2[:, :, 0]
         output2[:, :, 2] = output2[:, :, 0]
 
-        output = np.ones(array.shape)
-        for x in range(array.shape[0]):
-            for y in range(array.shape[1]):
-                output[x][y] = abs(output1[x][y]) + abs(output2[x][y])
+        output = np.abs(output1) + np.abs(output2)
 
         return np.array(output, np.uint8)
