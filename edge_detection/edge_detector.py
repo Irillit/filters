@@ -1,10 +1,12 @@
+from strategy import Strategy
+
 import numpy as np
 from convolutions import Convolutions
 from edge_detection.kernels import Kernels
 import time
 
 
-class EdgeDetector:
+class EdgeDetector(Strategy):
 
     def __init__(self, filter_type):
         if filter_type == "prewitt":

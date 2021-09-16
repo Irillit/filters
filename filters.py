@@ -1,30 +1,29 @@
-from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
-from trivialfilters import TrivialFilters
-from edge_detection.edge_detector import EdgeDetector
-from medianfilter import MedianFilter
+
+from PIL import Image
 
 
-def sepia(gray_array):
-    normalized_gray = np.array(gray_array, np.float32) / 255.0
+class Filter:
 
-    sepia = np.ones(gray_array.shape)
-    sepia[:, :, 0] *= 255 * normalized_gray[:, :, 0]
-    sepia[:, :, 1] *= 204 * normalized_gray[:, :, 1]
-    sepia[:, :, 2] *= 153 * normalized_gray[:, :, 2]
+    def __init__(self, image_name, concrete_filter):
+        self.image_name = image_name
+        self.original = None
+        self.transformed = None
+        self.filter = concrete_filter
 
-    return np.array(sepia, np.uint8)
+    def get_content(self):
+        self.original = np.array(Image.open(self.image_name))
+
+    def apply(self):
+        self.get_content()
+        self.transformed = self.filter.apply(self.original)
+
+    def print_transformed_image(self):
+        output_image = Image.fromarray(self.transformed)
+        plt.imshow(output_image)
+        plt.show()
 
 
-def print_image(array):
-    image = Image.fromarray(array)
-    plt.imshow(image)
-    plt.show()
 
 
-if __name__ == "__main__":
-    array = np.array(Image.open('skins-dva.jpg'))
-    median = MedianFilter(5)
-    sobel_array = median.apply(array)
-    print_image(sobel_array)
